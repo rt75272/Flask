@@ -24,6 +24,20 @@ app.config['SECRET_KEY'] = 'your secret key'
 def success(name):
     return 'Welcome %s' % name
 
+@app.route('/math', methods =["GET", "POST"])
+def test():
+    if request.method == "POST":
+       # getting input with name = fname in HTML form
+       first_name = request.form.get("fname")
+       # getting input with name = lname in HTML form 
+       last_name = request.form.get("lname") 
+
+       message = "Hello, " + first_name + " " + last_name
+
+       return render_template("math.html", message=message)
+    
+    return render_template('math.html')
+
 # Run the main index file in the home directory.
 @app.route('/')
 def index():
