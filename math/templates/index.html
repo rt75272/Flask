@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Math Practice</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .container {
+            max-width: 500px;
+            margin: auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1, h2 {
+            text-align: center;
+        }
+        .result {
+            text-align: center;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+        .difficulty-select {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .score {
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 1.2em;
+            font-weight: bold;
+        }
+        p {
+            text-align: center;
+        }
+        input {
+            text-align: center;
+            padding: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Math Practice</h1>
+        </br>
+        <div class="score">
+            Current Score: {{ score }}
+        </div>
+
+        {% if result %}
+            <div class="result">{{ result }}</div>
+        {% endif %}
+
+        <form method="POST" action="{{ url_for('index') }}">
+            {% if question %}
+                <!-- <h2>Solve the problem:</h2> -->
+                <h1>{{ question }}</h1>
+                <input type="hidden" name="difficulty" value="{{ difficulty }}">
+                <p><input placeholder="Enter your answer" type="number" name="answer" required></p>
+                <p><input type="submit" value="Submit"></p>
+            {% endif %}
+        </form>
+        </br>
+        <div class="difficulty-select">
+            <h2>Change Difficulty:</h2>
+            <p>
+                <a href="{{ url_for('index', difficulty='easy') }}">Easy</a> |
+                <a href="{{ url_for('index', difficulty='medium') }}">Medium</a> |
+                <a href="{{ url_for('index', difficulty='hard') }}">Hard</a>
+            </p>
+        </div>
+
+        <div class="reset-score" style="text-align: center;">
+            <p><a href="{{ url_for('reset_score') }}">Reset Score</a></p>
+        </div>
+    </div>
+</body>
+</html>
