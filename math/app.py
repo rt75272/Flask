@@ -27,53 +27,59 @@ def generate_question(difficulty):
         question = f"{num1} * {num2}"
         answer = num1 * num2
     elif operation == 'divide':
-        # Ensure division is exact and no division by zero
-        num1 = num1 * num2  # To ensure the division is exact
+        num1 = num1 * num2  # Ensure division is exact
         question = f"{num1} / {num2}"
         answer = num1 // num2
 
     return question, answer
 
-@app.route('/', methods=['GET', 'POST'])
+@app.route('/')
 def index():
     if 'score' not in session:
         session['score'] = 0
-    if request.method == 'POST':
-        try:
-            user_answer = int(request.form['answer'])
-            correct_answer = session.get('correct_answer', None)
-            difficulty = request.form['difficulty']
-            
-            if correct_answer is not None:
-                if user_answer == correct_answer:
-                    session['score'] += 1
-                    result = "Correct! Your score increased by 1."
-                else:
-                    # session['score'] -= 1
-                    result = f"Incorrect. The correct answer was {correct_answer}."
-            else:
-                result = "Error: Correct answer not found."
+    difficulty = request.args.get('difficulty', 'easy')
+    session['question'], session['correct_answer'] = generate_question(difficulty)
+    return render_template('index.html', question=session['question'], score=session['score'], difficulty=difficulty)
 
-            # Generate a new question for the next round
-            session['question'], session['correct_answer'] = generate_question(difficulty)
+@app.route('/submit', methods=['POST'])
+def submit():
+    user_answer = request.form['answer']
+    correct_answer = session.get('correct_answer', None)
+    difficulty = request.form['difficulty']
+    result = ""
 
-        except ValueError:
-            result = "Invalid input. Please enter a valid number."
+    if user_answer.isdigit() and correct_answer is not None:
+        user_answer = int(user_answer)
+        if user_answer == correct_answer:
+            session['score'] += 1
+            result = "Correct! Your score increased by 1."
+        else:
+            result = f"Incorrect. The correct answer was {correct_answer}."
+    else:
+        result = "Invalid input. Please enter a valid number."
 
-        return render_template('index.html', result=result, difficulty=difficulty, score=session['score'], question=session['question'])
+    session['question'], session['correct_answer'] = generate_question(difficulty)
+    return render_template('index.html', result=result, question=session['question'], score=session['score'], difficulty=difficulty)
 
-    # Initialize a new question if not available
-    if 'question' not in session or request.method == 'GET':
-        difficulty = request.args.get('difficulty', 'easy')
-        session['question'], session['correct_answer'] = generate_question(difficulty)
+@app.route('/math_resources')
+def math_resources():
+    return render_template('math_resources.html')
 
-    return render_template('index.html', result="Answer the question below to get started", question=session['question'], score=session['score'], difficulty=request.args.get('difficulty', 'easy'))
+@app.route('/science_resources')
+def science_resources():
+    return render_template('science_resources.html')
+
+@app.route('/about')
+def about():
+    return render_template('about.html')
+
+@app.route('/contact')
+def contact():
+    return render_template('contact.html')
 
 @app.route('/reset_score')
 def reset_score():
     session['score'] = 0
-    session.pop('question', None)
-    session.pop('correct_answer', None)
     return redirect(url_for('index'))
 
 if __name__ == '__main__':
