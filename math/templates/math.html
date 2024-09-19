@@ -1,0 +1,167 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<!-- <h2>Math</h2>
+<ul>
+    <li><a href="link_to_worksheet">Math Practice</a></li>
+    <li><a href="link_to_video">Helpful Videos</a></li>
+    <li><a href="link_to_article">Articles on Math Concepts</a></li>
+</ul>
+
+
+<iframe width="420" height="315" 
+    src="https://www.youtube.com/embed/KdrLqOgVioM" 
+    frameborder="0" allowfullscreen>
+</iframe>
+
+<iframe width="560" height="315" 
+    src="https://www.youtube.com/embed/qtMYR7X_n-M?si=KNIsMmup9gWNQ9by" 
+    title="YouTube video player" frameborder="0" 
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+    referrerpolicy="strict-origin-when-cross-origin" allowfullscreen>
+</iframe>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+
+
+
+
+
+<div class="container"></div>
+    <h2>Current Score: {{ score }}</h2>
+    {% if result %}
+        <div class="result">{{ result }}</div>
+    {% endif %}
+    <form method="POST" action="{{ url_for('submit') }}">
+        <h1>{{ question }}</h1>
+        <input type="hidden" name="difficulty" value="{{ difficulty }}">
+        <input type="number" name="answer" placeholder="Enter your answer" required>
+        <input type="submit" value="Submit">
+    </form>
+    <div class="difficulty-select">
+        <h3>Change Difficulty:</h3>
+        <p>
+            <a href="{{ url_for('index', difficulty='easy') }}">Easy</a> |
+            <a href="{{ url_for('index', difficulty='medium') }}">Medium</a> |
+            <a href="{{ url_for('index', difficulty='hard') }}">Hard</a>
+        </p>
+    </div>
+    <div class="reset-score">
+        <p><a href="{{ url_for('reset_score') }}" style="color: #dc3545;">Reset Score</a></p>
+    </div>
+</div> -->
+<!-- <h2>Math</h2>
+<ul>
+    <li><a href="link_to_worksheet">Math Practice</a></li>
+    <li><a href="link_to_video">Helpful Videos</a></li>
+    <li><a href="link_to_article">Articles on Math Concepts</a></li>
+</ul> -->
+<div class="unit-title">
+    <p>Unit 1</p>
+</div>
+<h3>
+    Problem Solving Multi-Digit Multiplication 
+</h3>
+
+<iframe width="420" height="315" 
+        src="https://www.youtube.com/embed/KdrLqOgVioM" 
+        frameborder="0" 
+        allowfullscreen>
+</iframe>
+
+<h3>
+    Standard Algorithm Long Division 
+</h3>
+
+
+<iframe width="560" height="315" 
+    src="https://www.youtube.com/embed/aZs_9aDv9LI?si=rCkI1Y_WGzNec_to" 
+    title="YouTube video player" frameborder="0" 
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+    referrerpolicy="strict-origin-when-cross-origin" allowfullscreen>
+</iframe>
+
+
+<br/>
+<div class="unit-title">
+    <p>Unit 2</p>
+</div>
+<h3>
+    Subtracting Mixed Fractions
+</h3>
+<iframe width="560" height="315" 
+        src="https://www.youtube.com/embed/qtMYR7X_n-M?si=KNIsMmup9gWNQ9by" 
+        title="YouTube video player" 
+        frameborder="0" 
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+        referrerpolicy="strict-origin-when-cross-origin" 
+        allowfullscreen>
+</iframe>
+
+<br/>
+<div class="unit-title">
+    <p>Unit 3</p>
+</div>
+<h3>
+    Subtracting Mixed Fractions
+</h3>
+<iframe width="560" height="315" 
+        src="https://www.youtube.com/embed/qtMYR7X_n-M?si=KNIsMmup9gWNQ9by" 
+        title="YouTube video player" 
+        frameborder="0" 
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+        referrerpolicy="strict-origin-when-cross-origin" 
+        allowfullscreen>
+</iframe>
+
+<!-- 
+<div class="container">
+    <h2>Current Score: {{ score }}</h2>
+    {% if result %}
+        <div class="result">{{ result }}</div>
+    {% endif %}
+    <form method="POST" action="{{ url_for('submit') }}">
+        <h1>{{ question }}</h1>
+        <input type="hidden" name="difficulty" value="{{ difficulty }}">
+        <input type="number" name="answer" placeholder="Enter your answer" required>
+        <input type="submit" value="Submit">
+    </form>
+    <div class="difficulty-select">
+        <h3>Change Difficulty:</h3>
+        <p>
+            <a href="{{ url_for('index', difficulty='easy') }}">Easy</a> |
+            <a href="{{ url_for('index', difficulty='medium') }}">Medium</a> |
+            <a href="{{ url_for('index', difficulty='hard') }}">Hard</a>
+        </p>
+    </div>
+    <div class="reset-score">
+        <p><a href="{{ url_for('reset_score') }}" style="color: #dc3545;">Reset Score</a></p>
+    </div>
+</div> -->
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Math Resources</title>
+</head>
+<body>
+    <h1>Math Quiz</h1>
+    <p>Question: {{ question }}</p>
+    <form action="{{ url_for('submit') }}" method="post">
+        <input type="text" name="answer" placeholder="Your answer">
+        <input type="hidden" name="difficulty" value="{{ difficulty }}">
+        <button type="submit">Submit</button>
+    </form>
+    <p>Your score: {{ score }}</p>
+</body>
+</html>
+
+{% endblock %}

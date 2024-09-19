@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     <title>{% block title %}Mrs McAllister{% endblock %}</title>
+    <link rel="icon" type="image/png", href="./static/images/favicon_coke.png" />
 </head>
 <body>
     <header>
@@ -12,8 +13,8 @@
         <nav>
             <ul>
                 <li><a href="{{ url_for('index') }}">Home</a></li>
-                <li><a href="{{ url_for('math_resources') }}">Math Resources</a></li>
-                <li><a href="{{ url_for('science_resources') }}">Science Resources</a></li>
+                <li><a href="{{ url_for('math') }}">Math</a></li>
+                <li><a href="{{ url_for('science_resources') }}">Science</a></li>
                 <li><a href="{{ url_for('about') }}">About</a></li>
                 <li><a href="{{ url_for('contact') }}">Contact</a></li>
             </ul>

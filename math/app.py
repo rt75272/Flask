@@ -41,6 +41,19 @@ def index():
     session['question'], session['correct_answer'] = generate_question(difficulty)
     return render_template('index.html', question=session['question'], score=session['score'], difficulty=difficulty)
 
+@app.route('/math')
+def math():
+    if 'score' not in session:
+        session['score'] = 0
+        
+    # Generate the question and answer on the first visit to this route
+    difficulty = request.args.get('difficulty', 'easy')
+    session['question'], session['correct_answer'] = generate_question(difficulty)
+    
+    return render_template('math.html', question=session['question'], score=session['score'], difficulty=difficulty)
+
+
+
 @app.route('/submit', methods=['POST'])
 def submit():
     user_answer = request.form['answer']
@@ -61,9 +74,9 @@ def submit():
     session['question'], session['correct_answer'] = generate_question(difficulty)
     return render_template('index.html', result=result, question=session['question'], score=session['score'], difficulty=difficulty)
 
-@app.route('/math_resources')
-def math_resources():
-    return render_template('math_resources.html')
+# @app.route('/math_resources')
+# def math_resources():
+#     return render_template('math_resources.html')
 
 @app.route('/science_resources')
 def science_resources():

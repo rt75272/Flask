@@ -5,7 +5,7 @@
 }
 
 body {
-    font-family: 'Arial', sans-serif;
+    font-family: 'century-gothic','Arial', sans-serif;
     line-height: 1.6;
     background-color: #f0f4f8;
     color: #333;
@@ -153,6 +153,17 @@ li {
 .pets {
     margin-left: 2em;
 }
+
+.unit-title p {
+    font-size: 100px;
+    color: #007bff; /* You can change the color */
+     /* Adjust for sparkle effect */
+    position: relative; /* Positioning at top left */
+    top: 10px; /* Adjust as needed */
+    left: 10px; /* Adjust as needed */
+    bottom: auto;
+}
+
 @media (max-width: 600px) {
     nav ul li {
         display: block;
