@@ -2,6 +2,7 @@
 
 {% block content %}
 
+<hr />
 <div class="container">
     <div class="unit-title">
         <p>Unit 1</p>
@@ -9,18 +10,16 @@
     <h3>
         Problem Solving Multi-Digit Multiplication 
     </h3>
-
     <iframe width="420" height="315" 
             src="https://www.youtube.com/embed/KdrLqOgVioM" 
             frameborder="0" 
             allowfullscreen>
     </iframe>
+    <hr/>
 
     <h3>
         Standard Algorithm Long Division 
     </h3>
-
-
     <iframe width="560" height="315" 
         src="https://www.youtube.com/embed/aZs_9aDv9LI?si=rCkI1Y_WGzNec_to" 
         title="YouTube video player" frameborder="0" 
@@ -28,8 +27,8 @@
         referrerpolicy="strict-origin-when-cross-origin" allowfullscreen>
     </iframe>
 
-
     <br/>
+
     <div class="unit-title">
         <p>Unit 2</p>
     </div>
@@ -46,62 +45,19 @@
     </iframe>
 
     <br/>
+
     <div class="unit-title">
-        <p>Unit 3</p>
+        <p>Math Quiz</p>
     </div>
-    <h3>
-        Subtracting Mixed Fractions
-    </h3>
-    <iframe width="560" height="315" 
-            src="https://www.youtube.com/embed/qtMYR7X_n-M?si=KNIsMmup9gWNQ9by" 
-            title="YouTube video player" 
-            frameborder="0" 
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-            referrerpolicy="strict-origin-when-cross-origin" 
-            allowfullscreen>
-    </iframe>
+    <h1>Math Quiz</h1>
+    <p>Question: {{ question }}</p>
+    <form action="{{ url_for('submit') }}" method="post">
+        <input type="text" name="answer" placeholder="Your answer" required>
+        <input type="hidden" name="difficulty" value="{{ difficulty }}">
+        <button type="submit">Submit</button>
+    </form>
+    <p>Your score: {{ score }}</p>
 
-
-
-    <br/>
-    <div class="unit-title">
-        <p>Unit 3</p>
-    </div>
-    <h3>
-        Subtracting Mixed Fractions
-    </h3>
-    <iframe width="560" height="315" 
-            src="https://www.youtube.com/embed/qtMYR7X_n-M?si=KNIsMmup9gWNQ9by" 
-            title="YouTube video player" 
-            frameborder="0" 
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-            referrerpolicy="strict-origin-when-cross-origin" 
-            allowfullscreen>
-    </iframe>
-
-    <br/>
-    <div class="unit-title">
-        <p>Unit 4</p>
-    </div>
-    <h3>
-        Area    </h3>
-    <iframe width="560" height="315" 
-            src="https://www.youtube.com/embed/qtMYR7X_n-M?si=KNIsMmup9gWNQ9by" 
-            title="YouTube video player" 
-            frameborder="0" 
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-            referrerpolicy="strict-origin-when-cross-origin" 
-            allowfullscreen>
-    </iframe>
-
-        <h1>Math </h1>
-        <p>Question: {{ question }}</p>
-        <form action="{{ url_for('submit') }}" method="post">
-            <input type="text" name="answer" placeholder="Your answer">
-            <input type="hidden" name="difficulty" value="{{ difficulty }}">
-            <button type="submit">Submit</button>
-        </form>
-        <p>Your score: {{ score }}</p>
 </div>
 
 {% endblock %}

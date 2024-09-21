@@ -13,13 +13,15 @@
         <nav>
             <ul>
                 <li><a href="{{ url_for('index') }}">Home</a></li>
-                <li><a href="{{ url_for('math') }}">Math</a></li>
+                <li><a href="{{ url_for('math_videos') }}">Math Videos</a></li>
+                <li><a href="{{ url_for('math') }}">Math Practice</a></li>
                 <li><a href="{{ url_for('science_resources') }}">Science</a></li>
                 <li><a href="{{ url_for('about') }}">About</a></li>
                 <li><a href="{{ url_for('contact') }}">Contact</a></li>
             </ul>
         </nav>
     </header>
+    
     <main>
         {% block content %}{% endblock %}
     </main>

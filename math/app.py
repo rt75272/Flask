@@ -41,7 +41,7 @@ def index():
     session['question'], session['correct_answer'] = generate_question(difficulty)
     return render_template('index.html', question=session['question'], score=session['score'], difficulty=difficulty)
 
-@app.route('/math')
+@app.route('/quiz')
 def math():
     if 'score' not in session:
         session['score'] = 0
@@ -50,8 +50,11 @@ def math():
     difficulty = request.args.get('difficulty', 'easy')
     session['question'], session['correct_answer'] = generate_question(difficulty)
     
-    return render_template('math.html', question=session['question'], score=session['score'], difficulty=difficulty)
+    return render_template('quiz.html', question=session['question'], score=session['score'], difficulty=difficulty)
 
+@app.route('/math_videos')
+def math_videos():
+    return render_template('math_videos.html')
 
 
 @app.route('/submit', methods=['POST'])
@@ -72,11 +75,7 @@ def submit():
         result = "Invalid input. Please enter a valid number."
 
     session['question'], session['correct_answer'] = generate_question(difficulty)
-    return render_template('index.html', result=result, question=session['question'], score=session['score'], difficulty=difficulty)
-
-# @app.route('/math_resources')
-# def math_resources():
-#     return render_template('math_resources.html')
+    return render_template('quiz.html', result=result, question=session['question'], score=session['score'], difficulty=difficulty)
 
 @app.route('/science_resources')
 def science_resources():
@@ -92,8 +91,12 @@ def contact():
 
 @app.route('/reset_score')
 def reset_score():
+    # Reset the score to 0
     session['score'] = 0
-    return redirect(url_for('index'))
+    # Generate a new question after resetting the score
+    difficulty = request.args.get('difficulty', 'easy')  # Get the difficulty from the session or default
+    session['question'], session['correct_answer'] = generate_question(difficulty)
+    return redirect(url_for('math'))
 
 if __name__ == '__main__':
     app.run(debug=True)

@@ -3,18 +3,26 @@
     margin: 0;
     padding: 0;
 }
-
+html, body {
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    border: 0;
+}
 body {
-    font-family: 'century-gothic','Arial', sans-serif;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    font-family: 'century-gothic', 'Arial', sans-serif;
     line-height: 1.6;
     background-color: #f0f4f8;
     color: #333;
     padding: 20px;
-    /* background-color: red; */
-    background-image: url("/static/images/Newcoke_image.jpeg");
-    background-repeat: no-repeat; /* Prevents the image from repeating */
-    background-size: cover; /* Stretches the image to cover the entire area */
-    background-position: center; /* Centers the image */
+    background-image: url("/static/images/coke_cans.jpg");
+    /* background-repeat: no-repeat; */
+    background-size: cover;
+    background-position: center;
 }
 header {
     background: linear-gradient(135deg, red, #000);
@@ -24,7 +32,6 @@ header {
     border-radius: 10px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
 }
-
 nav ul {
     list-style-type: none;
     padding: 0;
@@ -34,20 +41,18 @@ nav ul li {
     display: inline;
     margin: 0 15px;
 }
-
 nav a {
     color: #fff;
     text-decoration: none;
     font-weight: bold;
     transition: color 0.3s;
 }
-
 nav a:hover {
     color: #ffcc00;
 }
-
 .container {
     max-width: 800px;
+    min-height: 100%;
     margin: auto;
     padding: 20px;
     background: #e0dfdf;
@@ -55,16 +60,10 @@ nav a:hover {
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
     text-align: center;
 }
-
 h1, h2, h3, h4 {
     text-align: center;
-    /* margin-bottom: 15px; */
 }
-/* h3 {
-    text-align: left;
-} */
 a {
-    /* text-decoration: none; */
     color: inherit;
 }
 .center_img {
@@ -84,7 +83,6 @@ a {
     background: #e7f3fe;
     color: #007bff;
 }
-
 input[type="text"],
 input[type="number"],
 textarea {
@@ -96,13 +94,11 @@ textarea {
     font-size: 1em;
     transition: border-color 0.3s;
 }
-
 input[type="text"]:focus,
 input[type="number"]:focus {
     border-color: #0056b3;
     outline: none;
 }
-
 input[type="submit"],
 button {
     background: #28a745;
@@ -114,42 +110,37 @@ button {
     font-size: 1em;
     transition: background 0.3s;
 }
-
 input[type="submit"]:hover,
 button:hover {
     background: #218838;
 }
-
 .difficulty-select {
     text-align: center;
     margin-top: 20px;
 }
-
 .difficulty-select a {
     color: #007bff;
     text-decoration: none;
     margin: 0 10px;
     font-weight: bold;
 }
-
 .difficulty-select a:hover {
     text-decoration: underline;
 }
-
 .reset-score {
     text-align: center;
     margin-top: 20px;
 }
-
+main {
+    flex: 1;
+}
 footer {
     text-align: center;
     margin-top: 30px;
     padding: 10px;
-    background:linear-gradient(135deg, #000,red);
+    background: linear-gradient(135deg, #000, red);
     color: #fff;
     border-radius: 5px;
-    position: relative;
-    bottom: 0;
     width: 100%;
 }
 li {
@@ -158,17 +149,25 @@ li {
 .pets {
     margin-left: 2em;
 }
-
+.unit-title {
+    padding: 10px;
+    background-color: #e0dfdf; /* Light background for emphasis */
+    border-radius: 5px;
+    text-align: center;
+}
 .unit-title p {
-    font-size: 100px;
-    color: red; /* You can change the color */
-     /* Adjust for sparkle effect */
-    position: relative; /* Positioning at top left */
-    top: 10px; /* Adjust as needed */
-    left: 10px; /* Adjust as needed */
+    font-size: 2em;
+    color: red;
+    position: relative;
+    top: 10px;
     bottom: auto;
 }
-
+#bouncingBall {
+    position: absolute;
+    height: 100px;
+    top: 0; 
+    left: 0;
+}
 @media (max-width: 600px) {
     nav ul li {
         display: block;

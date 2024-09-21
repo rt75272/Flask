@@ -1,27 +1,37 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<div class="container">
-    <h2>Current Score: {{ score }}</h2>
-    {% if result %}
-        <div class="result">{{ result }}</div>
-    {% endif %}
-    <form method="POST" action="{{ url_for('submit') }}">
-        <h1>{{ question }}</h1>
-        <input type="hidden" name="difficulty" value="{{ difficulty }}">
-        <input type="number" name="answer" placeholder="Enter your answer" required>
-        <input type="submit" value="Submit">
-    </form>
-    <div class="difficulty-select">
-        <h3>Change Difficulty:</h3>
-        <p>
-            <a href="{{ url_for('index', difficulty='easy') }}">Easy</a> |
-            <a href="{{ url_for('index', difficulty='medium') }}">Medium</a> |
-            <a href="{{ url_for('index', difficulty='hard') }}">Hard</a>
-        </p>
-    </div>
-    <div class="reset-score">
-        <p><a href="{{ url_for('reset_score') }}" style="color: #dc3545;">Reset Score</a></p>
-    </div>
+<div class="container" style="position: relative; overflow: hidden;">
+    <!-- Bouncing Ball Image -->
+    <img id="bouncingBall" src="{{ url_for('static', filename='images/coke_bottle.png') }}" alt="Bouncing Ball" />
+    <p><i>Please hold.....</i></p>
 </div>
+
+<script>
+    const ball = document.getElementById('bouncingBall');
+    let posX = Math.floor(Math.random() * 142);
+    let posY = Math.floor(Math.random() * 142);
+    let velocityX = 3; // Horizontal speed
+    let velocityY = 3; // Vertical speed
+    const container = document.querySelector('.container');
+
+    function animateBall() {
+        // Move the ball
+        posX += velocityX;
+        posY += velocityY;
+        // Check for collision with container edges
+        if (posX + ball.offsetWidth >= container.clientWidth || posX <= 0) {
+            velocityX = -velocityX; // Reverse horizontal direction
+        }
+        if (posY + ball.offsetHeight >= container.clientHeight || posY <= 0) {
+            velocityY = -velocityY; // Reverse vertical direction
+        }
+        ball.style.left = posX + 'px';
+        ball.style.top = posY + 'px';
+        requestAnimationFrame(animateBall); // Repeat the animation
+    }
+
+    // Start the animation
+    animateBall();
+</script>
 {% endblock %}
