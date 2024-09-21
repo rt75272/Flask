@@ -10,10 +10,14 @@ body {
     background-color: #f0f4f8;
     color: #333;
     padding: 20px;
+    /* background-color: red; */
+    background-image: url("/static/images/Newcoke_image.jpeg");
+    background-repeat: no-repeat; /* Prevents the image from repeating */
+    background-size: cover; /* Stretches the image to cover the entire area */
+    background-position: center; /* Centers the image */
 }
-
 header {
-    background: linear-gradient(135deg, #007bff, #00c6ff);
+    background: linear-gradient(135deg, red, #000);
     color: #fff;
     padding: 20px 0;
     text-align: center;
@@ -43,23 +47,24 @@ nav a:hover {
 }
 
 .container {
-    max-width: 600px;
+    max-width: 800px;
     margin: auto;
     padding: 20px;
-    background: #fff;
+    background: #e0dfdf;
     border-radius: 10px;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    text-align: center;
 }
 
 h1, h2, h3, h4 {
     text-align: center;
     /* margin-bottom: 15px; */
 }
-h3 {
+/* h3 {
     text-align: left;
-}
+} */
 a {
-    text-decoration: none;
+    /* text-decoration: none; */
     color: inherit;
 }
 .center_img {
@@ -140,7 +145,7 @@ footer {
     text-align: center;
     margin-top: 30px;
     padding: 10px;
-    background: #007bff;
+    background:linear-gradient(135deg, #000,red);
     color: #fff;
     border-radius: 5px;
     position: relative;
@@ -156,7 +161,7 @@ li {
 
 .unit-title p {
     font-size: 100px;
-    color: #007bff; /* You can change the color */
+    color: red; /* You can change the color */
      /* Adjust for sparkle effect */
     position: relative; /* Positioning at top left */
     top: 10px; /* Adjust as needed */
