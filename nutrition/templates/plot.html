@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Data Plots for {{ title }}</title>
+</head>
+<body>
+    <h1>Data Plots for {{ title }}</h1>
+    {% if plot_urls %}
+        {% for plot_url in plot_urls %}
+            <div>
+                <img src="{{ plot_url }}" alt="Data Plot for {{ title }}">
+            </div>
+            <br>
+        {% endfor %}
+    {% else %}
+        <p>No data available for plotting.</p>
+    {% endif %}
+    <a href="{{ url_for('index') }}">Back to Title List</a>
+</body>
+</html>

@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title List</title>
+</head>
+<body>
+    <h1>Title List</h1>
+    <ul>
+        {% for title in titles %}
+            <li><a href="{{ url_for('plot', row_id=loop.index0) }}">{{ title }}</a></li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
