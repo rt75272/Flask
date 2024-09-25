@@ -1,0 +1,113 @@
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    overflow: hidden;
+    display: flex; /* Use flexbox for the entire body */
+    justify-content: center; /* Center content horizontally */
+    align-items: center; /* Center content vertically */
+    font-family: 'Brush Script MT', "Palatino Linotype", "Bungee Hairline", "Lucida Console", "Courier New", monospace;
+}
+
+/* Styling for the left side navigation */
+.nav-main {
+    width: 100%; /* Fixed width for the navigation */
+    color: white; /* Text color */
+    /* padding: 15px; */
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.5);
+    display: flex; /* Enable flexbox layout */
+    flex-direction: column; /* Stack items vertically */
+    justify-content: center; /* Center items vertically */
+    height: 100%; /* Full height to center vertically */
+    font-size: 1.25em;
+    opacity: 0.8;
+}
+
+.nav-main h2 {
+    margin-top: 0;
+}
+
+.nav-main ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0; /* Remove default margin */
+}
+
+.nav-main li {
+    margin: 10px 0;
+}
+
+.nav-main a {
+    color: white;
+    text-decoration: none;
+}
+
+.nav-main a:hover {
+    text-decoration: underline;
+    opacity: 0.9;
+}
+.nav-other {
+    /* background-color: red; */
+    position: fixed; /* Fixed position on the left */
+    top: 0; /* Align to the top */
+    left: 0%; /* Align to the left */
+    height: 100%; /* Full height for vertical alignment */
+    text-align: left;
+    /* background-color: red; Background color */
+    display: flex; /* Enable flexbox layout */
+    flex-direction: column; /*Stack items vertically*/
+    justify-content: start; /*Start items at the top*/
+    font-size: 0.9em;
+    line-height: 1.25em;
+    opacity: 0.65;
+}
+
+.nav-other a:hover {
+    opacity: 1;
+}
+/* This will make the animation canvas be behind everything */
+#neural-network-animation {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1; /* Makes sure the canvas is behind all content */
+}
+
+/* Styling for content on top of the canvas */
+.content {
+    position: relative; /* Change to relative for centering */
+    z-index: 10;
+    color: #fcfcfc;
+    text-align: center;
+    /* font-family: Arial, sans-serif; */
+    width: 100%;
+    /* background-color: red; */
+    line-height: 2.5em;
+    /* Removed left and top properties for centering */
+}
+a {
+    text-decoration: none;
+    color: inherit;
+}
+a:hover {
+    text-decoration: underline;
+    color: cyan;
+}
+
+.about_content {
+    margin-top: 45%;
+    font-size: 0.85em;
+    opacity: 0.8;
+    text-decoration: none;
+}
+h1 {
+    font-size: 2.5em;
+    font-weight: lighter;
+    margin-bottom: 20%;
+    letter-spacing: 2.5px;
+    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif
+}
+
+p {
+    font-size: 1.5em;
+}

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ryan Thompson</title>
+    <link rel="stylesheet" href="../static/css/main.css"/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
+    <script src="{{ url_for('static', filename='js/neural_net.js') }}"></script>
+</head>
+
+<body>
+    <!-- Content on top of the animation -->
+    <div class="content">
+        <i><h1>Ryan Thompson</h1></i>
+        <!-- Centered navigation -->
+        <div class="nav-main">
+            <ul>
+                <li><a href="{{ url_for('index') }}">Home</a></li>
+                <li><a href="{{ url_for('about') }}">About</a></li>
+                <li><a href="#">Placeholder</a></li>
+                <li><a href="https://cs354-team-website.onrender.com" target="_blank">JavaScript</a></li>
+            </ul>
+        </div>
+    </div>
+    <div id="neural-network-animation"></div>
+</body>
+
+</html>
