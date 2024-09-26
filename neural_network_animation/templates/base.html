@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ryan Thompson</title>
+    <!-- <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}"> -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
+    <script src="{{ url_for('static', filename='js/neural_net.js') }}"></script>
+</head>
+<body>
+    <!-- <div class="content"> -->
+        <div class="nav-main nav-other">
+            <ul>
+                <li><a href="{{ url_for('index') }}">Home</a></li>
+                <li><a href="{{ url_for('about') }}">About</a></li>
+                <li><a href="https://flask-34ke.onrender.com" target="_blank">6th Grade</a></li>
+                <li><a href="https://cs354-team-website.onrender.com" target="_blank">JavaScript</a></li>
+                <li><a href="{{ url_for('house') }}">House Price Prediction</a></li>
+            </ul>
+        </div>
+    <!-- </div> -->
+    <main>{% block content %} {% endblock %}</main>
+    <div id="neural-network-animation"></div>
+</body>
+</html>

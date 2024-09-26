@@ -1,38 +1,13 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends 'base.html' %}
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}"> <!-- Link to the external CSS file -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
-    <script src="{{ url_for('static', filename='js/neural_net.js') }}"></script>
-</head>
+{% block content %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
 
-<body>
-    <!-- Content on top of the animation -->
-    <div class="content">
-        <i><h1>About</h1></i>
-
-        <!-- Centered navigation -->
-        <div class="nav-main nav-other" >
-            <ul>
-                <li><a href="{{ url_for('index') }}">Home</a></li>
-                <li><a href="{{ url_for('about') }}">About</a></li>
-                <li><a href="#">Placeholder</a></li>
-                <li><a href="https://cs354-team-website.onrender.com" target="_blank">JavaScript</a></li>
-            </ul>
-        </div>
-        <!-- <p>Data Science Certificate</p>
-        <p>BS in Computer Science</p>
-        <p>MS in Artificial Intelligence and Machine Learning</p> -->
-        <div class="about_content">
-            <p><a href="{{ url_for('static', filename='/Ryan_Thompson_Resume.pdf') }}" target="blank">Resume</a></p>
-            <p><a href="mailto:rt75272@gmail.com">Email</a></p>
-            <p><a href="https://github.com/rt75272" target="blank">GitHub</a></p>
-        </div>
+    <i><h1>About</h1></i>
+    <p id="about_bio"><i>Various pieces of work done by Ryan Thompson</i></p>
+    <div class="about_content">
+        <p><a href="{{ url_for('static', filename='/Ryan_Thompson_Resume.pdf') }}" target="_blank">Resume</a></p>
+        <p><a href="mailto:rt75272@gmail.com">Email</a></p>
+        <p><a href="https://github.com/rt75272" target="_blank">GitHub</a></p>
     </div>
-    <div id="neural-network-animation"></div>
-</body>
-</html>
+{% endblock %}

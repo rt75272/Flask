@@ -1,4 +1,4 @@
-let layers = [7, 9, 5];  // Define the number of nodes in each layer
+let layers = [4, 5, 3];  // Define the number of nodes in each layer
 let nodes = [];  // Array to store node positions and velocities
 
 function setup() {
