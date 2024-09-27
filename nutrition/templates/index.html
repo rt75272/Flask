@@ -6,10 +6,20 @@
 </head>
 <body>
     <h1>Title List</h1>
-    <ul>
-        {% for title in titles %}
-            <li><a href="{{ url_for('plot', row_id=loop.index0) }}">{{ title }}</a></li>
-        {% endfor %}
-    </ul>
+    <form action="{{ url_for('index') }}" method="GET" id="dropdownForm">
+        <label for="titleSelect">Select a Title:</label>
+        <select id="titleSelect" name="title" onchange="this.form.submit()">
+            <option value="">-- Select a Title --</option>
+            {% for title in titles %}
+                <option value="{{ loop.index0 }}">{{ title }}</option>
+            {% endfor %}
+        </select>
+    </form>
+
+    {% if request.args.get('title') %}
+        <script>
+            document.getElementById('titleSelect').value = "{{ request.args.get('title') }}";
+        </script>
+    {% endif %}
 </body>
 </html>

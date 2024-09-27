@@ -33,7 +33,7 @@ function windowResized() {
 function draw() {
   background(0, 0, 0, 85);  // Black background
   let nodeDiameter = 5;
-  let darkGray = 60;
+  let darkGray = 500; // animation color/opacity. 
 
   // Draw and animate the nodes
   for (let i = 0; i < layers.length; i++) {
@@ -56,7 +56,7 @@ function draw() {
         for (let k = 0; k < layers[i - 1]; k++) {
           // Draw lines between nodes of consecutive layers (dark gray lines)
           stroke(darkGray);  // Dark gray color for lines
-          strokeWeight(0.15);
+          strokeWeight(0.25);
           line(nodes[i - 1][k].x, nodes[i - 1][k].y, nodes[i][j].x, nodes[i][j].y);
 
         //   // Draw an animated pulse along the lines (dark gray pulse)

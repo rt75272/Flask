@@ -1,7 +1,7 @@
+from flask import Flask, render_template, url_for, request, redirect
 import matplotlib
 matplotlib.use('Agg')  # Use a non-interactive backend
 
-from flask import Flask, render_template, url_for
 import pandas as pd
 import matplotlib.pyplot as plt
 import os
@@ -25,11 +25,17 @@ y_limits = dict(zip(y_limits_df['food'], y_limits_df['max']))
 
 @app.route('/')
 def index():
-    # Extract the first column as titles (used for links)
     titles = df[df.columns[0]]
-    
-    # Render the index.html template and pass the list of titles
+
+    # Check if a title has been selected
+    selected_title = request.args.get('title')
+    if selected_title and selected_title.isdigit():
+        row_id = int(selected_title)
+        return redirect(url_for('plot', row_id=row_id))
+
     return render_template('index.html', titles=titles)
+
+
 @app.route('/plot/<int:row_id>')
 def plot(row_id):
     # Get the specific row and its title
@@ -48,55 +54,41 @@ def plot(row_id):
     num_valid_features = len(valid_features)
 
     # Define the number of columns for layout
-    num_cols = 4  # Set how many plots you want in one row
+    num_cols = 6  # Set how many plots you want in one row
     num_rows = (num_valid_features + num_cols - 1) // num_cols  # Calculate required rows
 
     # Create a single figure with subplots arranged in a grid
-    fig, axs = plt.subplots(num_rows, num_cols, figsize=(4.5 * num_cols, 2 * num_rows))  # Adjusted size here
+    fig, axs = plt.subplots(num_rows, num_cols, figsize=(3 * num_cols, 2 * num_rows))
 
     # Flatten the axes array for easy indexing
     axs = axs.flatten()
 
     # Loop through each valid feature for the given row
     for i, column in enumerate(valid_features):
-        # Plot the column's data as a bar chart (for a single value, row[column])
+        # Plot the column's data as a bar chart
         bar = axs[i].bar(column, row[column])
-
-        # Set the x and y axis labels and title
-        axs[i].set_xlabel('Feature')  # X-axis: column name
-        axs[i].set_ylabel('Value')  # Y-axis: the value of the row in this column
-        axs[i].set_title(f'{column} for {title}')  # Title from the first column and the current column name
+        # axs[i].set_xlabel('Feature')
+        axs[i].set_ylabel('Daily Intake')
+        # axs[i].set_title(f'{column} for {title}')
         
-        # Set y-limits based on y_limits dictionary
         if column in y_limits:
-            axs[i].set_ylim(0, y_limits[column])  # Set y-limits
+            axs[i].set_ylim(0, y_limits[column])
 
-        # Add the numeric value on top of the bar
-        for bar in axs[i].patches:  # Iterate through each bar
-            axs[i].annotate(f'{bar.get_height():.1f}',  # Format the height value
-                            (bar.get_x() + bar.get_width() / 2, bar.get_height()),  # Position above the bar
-                            ha='center', va='bottom')  # Centered horizontally, bottom vertically
+        for bar in axs[i].patches:
+            axs[i].annotate(f'{bar.get_height():.1f}', 
+                            (bar.get_x() + bar.get_width() / 2, bar.get_height()), 
+                            ha='center', va='bottom')
 
-    # Hide any unused subplots
     for j in range(i + 1, num_rows * num_cols):
-        axs[j].axis('off')  # Hide the unused axes
+        axs[j].axis('off')
 
-    # Adjust layout to prevent overlap
     plt.tight_layout()
-
-    # Save the combined plot
     plt.savefig(plot_path)
     plt.close()
 
-    # Only add plot URL if there are valid features to plot
-    if num_valid_features > 0:
-        plot_url = url_for('static', filename=plot_filename)
-    else:
-        plot_url = None  # No valid features, no plot to show
+    plot_url = url_for('static', filename=plot_filename) if num_valid_features > 0 else None
 
-    # Render the plot.html template and pass the title and the plot URL
     return render_template('plot.html', title=title, plot_urls=[plot_url] if plot_url else [])
-
 
 if __name__ == '__main__':
     app.run(debug=True)

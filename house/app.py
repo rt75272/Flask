@@ -21,6 +21,9 @@ def predict():
     
     # Round the prediction to 2 decimal places
     rounded_prediction = round(prediction[0], 2)
+    rounded_prediction = '{0:.2f}'.format(rounded_prediction)
+    rounded_prediction = float(rounded_prediction)
+    rounded_prediction = ('{:,}'.format(rounded_prediction))
     
     return render_template('index.html', prediction=rounded_prediction)
 

@@ -1,11 +1,9 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
-
-    <i><h1>About</h1></i>
-    <p id="about_bio"><i>Various pieces of work done by Ryan Thompson</i></p>
-    <div class="about_content">
+    <div class="content-container">
+        <i><h1>About</h1></i>
+        <p><i>Various pieces of work done by Ryan Thompson</i></p>
         <p><a href="{{ url_for('static', filename='/Ryan_Thompson_Resume.pdf') }}" target="_blank">Resume</a></p>
         <p><a href="mailto:rt75272@gmail.com">Email</a></p>
         <p><a href="https://github.com/rt75272" target="_blank">GitHub</a></p>

@@ -34,6 +34,10 @@ def predict():
     except Exception as e:
         return render_template('house.html', prediction=f"An error occurred: {str(e)}")
 
+@app.route('/data-analysis')
+def data_analysis():
+    return render_template('data_demo.html')
+
 
 if __name__ == '__main__':
     app.run(debug=True)

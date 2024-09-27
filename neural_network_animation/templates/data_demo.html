@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="content-container">
+        <h2>Data Analysis Example</h2>
+        <p>This example uses preset data for analysis and visualization.</p>
+        
+        <button id="analyzeDataBtn">Analyze Data</button>
+
+        <div id="analysisResult" style="margin-top: 20px;"></div>
+        
+        <canvas id="dataChart" style="margin-top: 20px; max-width: 600px;"></canvas>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        // Preset data
+        const presetData = [10, 20, 30, 40, 50, 60, 70, 80, 90];
+
+        document.getElementById('analyzeDataBtn').addEventListener('click', function() {
+            const numbers = presetData;
+
+            const sum = numbers.reduce((a, b) => a + b, 0);
+            const average = sum / numbers.length || 0; // Avoid division by zero
+            const max = Math.max(...numbers);
+            const min = Math.min(...numbers);
+
+            const resultHtml = `
+                <h3>Analysis Results:</h3>
+                <p>Sum: ${sum}</p>
+                <p>Average: ${average.toFixed(2)}</p>
+                <p>Max: ${max}</p>
+                <p>Min: ${min}</p>
+            `;
+
+            document.getElementById('analysisResult').innerHTML = resultHtml;
+
+            // Prepare data for the chart
+            const labels = numbers.map((_, index) => `Data ${index + 1}`);
+            const data = {
+                labels: labels,
+                datasets: [{
+                    label: 'Data Values',
+                    data: numbers,
+                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    borderWidth: 1
+                }]
+            };
+
+            const config = {
+                type: 'bar',
+                data: data,
+                options: {
+                    responsive: true,
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            };
+
+            // Create the chart
+            const ctx = document.getElementById('dataChart').getContext('2d');
+            if (window.dataChart) {
+                window.dataChart.destroy(); // Destroy the previous chart instance if it exists
+            }
+            window.dataChart = new Chart(ctx, config); // Create a new chart instance
+        });
+    </script>
+{% endblock %}
