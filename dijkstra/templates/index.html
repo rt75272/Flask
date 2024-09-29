@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dijkstra's Algorithm Visualization</title>
+    <style>
+        body { display: flex; flex-direction: column; align-items: center; background: #f0f0f0; }
+        .grid { display: grid; grid-template-columns: repeat(20, 30px); grid-template-rows: repeat(20, 30px); }
+        .cell { width: 30px; height: 30px; border: 1px solid #ccc; }
+        .wall { background-color: #333; }
+        .visited { background-color: #5cb85c; }
+        .current { background-color: #f0ad4e; }
+        .start { background-color: #5bc0de; }
+        .end { background-color: #d9534f; }
+        .path { background-color: #f0ad4e; }
+    </style>
+</head>
+<body>
+    <form id="dijkstra-form" action="/run" method="GET" onsubmit="startAnimation(event)">
+        <button type="submit">Run Dijkstra's Algorithm</button>
+    </form>
+    <div class="grid" id="grid"></div>
+
+    <script>
+        let intervalId;
+
+        function startAnimation(event) {
+            event.preventDefault();
+            fetch('/run')
+                .then(response => response.json())
+                .then(() => {
+                    intervalId = setInterval(fetchNextStep, 500);
+                });
+        }
+
+        function fetchNextStep() {
+            fetch('/next_step')
+                .then(response => response.json())
+                .then(data => {
+                    if (data.status === 'completed') {
+                        clearInterval(intervalId);
+                        // Optionally highlight the final path
+                        data.path.forEach(cell => {
+                            const [x, y] = cell;
+                            const cellElement = document.querySelector(`#grid .cell[data-coord="${x},${y}"]`);
+                            if (cellElement) cellElement.classList.add('path');
+                        });
+                    } else {
+                        const [x, y] = data.current;
+                        const cellElement = document.querySelector(`#grid .cell[data-coord="${x},${y}"]`);
+                        if (cellElement) {
+                            cellElement.classList.add('current');
+                        }
+                        updateGrid(data.grid);
+                    }
+                });
+        }
+
+        function updateGrid(grid) {
+            const gridElement = document.getElementById('grid');
+            gridElement.innerHTML = '';
+            grid.forEach((row, i) => {
+                row.forEach((cell, j) => {
+                    const cellDiv = document.createElement('div');
+                    cellDiv.className = 'cell';
+                    cellDiv.dataset.coord = `${i},${j}`;
+                    if (cell.wall) {
+                        cellDiv.classList.add('wall');
+                    }
+                    if (cell.visited) {
+                        cellDiv.classList.add('visited');
+                    }
+                    if (cell.is_start) {
+                        cellDiv.classList.add('start');
+                    }
+                    if (cell.is_end) {
+                        cellDiv.classList.add('end');
+                    }
+                    gridElement.appendChild(cellDiv);
+                });
+            });
+        }
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            updateGrid({{ grid | tojson | safe }});
+        });
+    </script>
+</body>
+</html>

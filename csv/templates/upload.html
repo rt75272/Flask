@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Analysis with Flask</title>
+</head>
+<body>
+    <h1>Upload a CSV File for Analysis</h1>
+    <form action="/upload" method="post" enctype="multipart/form-data">
+        <input type="file" name="file" accept=".csv" required>
+        <button type="submit">Upload</button>
+    </form>
+
+    {% if summary %}
+        <h2>Summary of Uploaded Data</h2>
+        <h3>Columns:</h3>
+        <ul>
+            {% for col in summary.columns %}
+                <li>{{ col }}</li>
+            {% endfor %}
+        </ul>
+        <h3>First 5 Rows:</h3>
+        {{ summary.head | safe }}
+        <h3>Descriptive Statistics:</h3>
+        {{ summary.describe | safe }}
+
+        <h3>Data Visualization:</h3>
+        <img src="{{ plot }}" alt="Data Visualization" style="max-width: 600px;">
+    {% endif %}
+</body>
+</html>

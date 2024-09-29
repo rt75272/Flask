@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <title>Text Data Analyzer</title>
+</head>
+<body>
+    <h1>Text Data Analyzer</h1>
+    <form action="/upload" method="post" enctype="multipart/form-data">
+        <input type="file" name="file" accept=".txt" required>
+        <input type="submit" value="Analyze">
+    </form>
+
+    {% if word_freq|length > 0 %}
+    <ul>
+    {% for word, freq in word_freq.items() %}
+        <li>{{ word }}: {{ freq }}</li>
+    {% endfor %}
+        </ul>
+    {% else %}
+        <p>No words found.</p>
+    {% endif %}
+
+
+    {% if wordcloud_path %}
+        <h2>Word Cloud</h2>
+        <img src="{{ url_for('static', filename='wordcloud.png') }}" alt="Word Cloud">
+    {% endif %}
+</body>
+</html>
