@@ -2,16 +2,112 @@
 {% block content %}
 <div class="container">
     <h1>Math Practice</h1>
-    <p>Question: {{ question }}</p>
-    <form action="{{ url_for('submit') }}" method="post">
-        <input type="text" name="answer" placeholder="Your answer" required autofocus>
+    <p id="question">Question: {{ question }}</p>
+
+    <!-- Quiz Form -->
+    <form id="quizForm" method="post">
+        <input type="text" id="userAnswer" name="answer" placeholder="Your answer" required autofocus>
         <input type="hidden" name="difficulty" value="{{ difficulty }}">
         <button type="submit">Submit</button>
     </form>
-    </br>
-    <p>Your score: <strong>{{ score }}</strong></p>
+
+    <br/>
+    <p>Your score: <strong id="score">{{ score }}</strong></p>
     <div class="reset-score">
         <p><a href="{{ url_for('reset_score') }}" style="color: #dc3545;">Reset Score</a></p>
     </div>
+
+    <!-- Display result message -->
+    <div id="result"></div>
+
+    <!-- Basic Calculator Section -->
+    <h2>Calculator</h2>
+    <div class="calculator">
+        <form name="calculator" id="calculator">
+            <input type="text" name="display" id="display" class="display" disabled>
+            <br>
+            <button type="button" onclick="clearDisplay()">C</button>
+            <button type="button" onclick="appendToDisplay('7')">7</button>
+            <button type="button" onclick="appendToDisplay('8')">8</button>
+            <button type="button" onclick="appendToDisplay('9')">9</button>
+            <button type="button" onclick="appendToDisplay('+')">+</button>
+            <br>
+            <button type="button" onclick="appendToDisplay('4')">4</button>
+            <button type="button" onclick="appendToDisplay('5')">5</button>
+            <button type="button" onclick="appendToDisplay('6')">6</button>
+            <button type="button" onclick="appendToDisplay('-')">-</button>
+            <br>
+            <button type="button" onclick="appendToDisplay('1')">1</button>
+            <button type="button" onclick="appendToDisplay('2')">2</button>
+            <button type="button" onclick="appendToDisplay('3')">3</button>
+            <button type="button" onclick="appendToDisplay('*')">*</button>
+            <br>
+            <button type="button" onclick="appendToDisplay('0')">0</button>
+            <button type="button" onclick="appendToDisplay('.')">.</button>
+            <button type="button" onclick="calculateResult()">=</button>
+            <button type="button" onclick="appendToDisplay('/')">/</button>
+        </form>
+    </div>
 </div>
+
+<script>
+    // Calculator functions
+    function clearDisplay() {
+        document.calculator.display.value = '';
+    }
+
+    function appendToDisplay(value) {
+        document.calculator.display.value += value;
+    }
+
+    function calculateResult() {
+        try {
+            let result = eval(document.calculator.display.value);
+            document.calculator.display.value = result;
+        } catch (error) {
+            document.calculator.display.value = 'Error';
+        }
+    }
+
+    // Handle the quiz form submission without page reload
+    document.getElementById('quizForm').addEventListener('submit', function (event) {
+        event.preventDefault();  // Prevent default form submission
+
+        var userAnswer = document.getElementById('userAnswer').value;  // Get the user's answer
+        userAnswer = userAnswer.toString();
+        var difficulty = document.querySelector('input[name="difficulty"]').value;
+
+        // Send the answer to the server via AJAX
+        fetch('{{ url_for("submit") }}', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                answer: userAnswer,
+                difficulty: difficulty
+            })
+        })
+        .then(response => response.json())
+        .then(data => {
+            // Update the result message
+            var resultText = `You submitted: ${userAnswer}. `;
+            resultText += data.correct ? `Correct!` : `Incorrect. The correct answer is: ${data.correct_answer}.`;
+            document.getElementById('result').textContent = resultText;
+
+            // Update the score dynamically
+            document.getElementById('score').textContent = " " + data.score;
+
+            // Update the question on the page
+            document.getElementById('question').textContent = "Question: " + data.question;
+
+            // Clear the input field after submission
+            document.getElementById('userAnswer').value = '';
+        })
+        .catch(error => {
+            console.error("Error:", error);
+        });
+    });
+</script>
+
 {% endblock %}

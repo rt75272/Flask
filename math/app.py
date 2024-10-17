@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, session, redirect, url_for
+from flask import Flask, render_template, request, session, redirect, url_for, jsonify
 import random
 
 app = Flask(__name__)
@@ -22,7 +22,7 @@ def generate_question(difficulty):
         answer = num1 + num2
     elif operation == 'subtract':
         question = f"{num1} - {num2}"
-        answer = num1 - num2
+        answer = (num1) - (num2)
     elif operation == 'multiply':
         question = f"{num1} * {num2}"
         answer = num1 * num2
@@ -31,6 +31,7 @@ def generate_question(difficulty):
         question = f"{num1} / {num2}"
         answer = num1 // num2
 
+    answer = str(answer)
     return question, answer
 
 @app.route('/')
@@ -56,26 +57,38 @@ def math():
 def math_videos():
     return render_template('math_videos.html')
 
-
 @app.route('/submit', methods=['POST'])
 def submit():
-    user_answer = request.form['answer']
-    correct_answer = session.get('correct_answer', None)
-    difficulty = request.form['difficulty']
-    result = ""
+    # Receive JSON data from the client (AJAX)
+    data = request.get_json()
+    user_answer = data.get('answer')
+    correct_answer = session.get('correct_answer')
+    difficulty = data.get('difficulty')
 
-    if user_answer.isdigit() and correct_answer is not None:
-        user_answer = int(user_answer)
+    result = {"correct": False, "message": "", "score": session['score'], "correct_answer": correct_answer, "question": session['question']}
+
+    # Check if the user's answer is a valid digit and if a correct answer exists
+    if user_answer and correct_answer is not None:
+        user_answer = str(user_answer)
+        correct_answer = str(correct_answer)
+        # result["message"] = f"correct_answer: {correct_answer}"
         if user_answer == correct_answer:
             session['score'] += 1
-            result = "Correct! Your score increased by 1."
+            result["correct"] = True
+            result["message"] = "Correct! Your score increased by 1."
         else:
-            result = f"Incorrect. The correct answer was {correct_answer}."
-    else:
-        result = "Invalid input. Please enter a valid number."
-
+            result["message"] = f"Incorrect. The correct answer was {type(correct_answer)}."
+    
+    # Generate a new question after submission
     session['question'], session['correct_answer'] = generate_question(difficulty)
-    return render_template('quiz.html', result=result, question=session['question'], score=session['score'], difficulty=difficulty)
+
+    # Add the new question to the result
+    result["question"] = session['question']
+
+    # Return the result in JSON format
+    return jsonify(result)
+
+xyz = "hola"
 
 @app.route('/science_resources')
 def science_resources():
